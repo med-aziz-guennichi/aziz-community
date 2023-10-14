@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { formatDateString } from "@/lib/utils";
+import { AddLikeOrDislikeToThread } from "@/lib/actions/thread.actions";
+import Like from "../forms/Like";
 
 interface Props {
   id: string;
@@ -19,12 +21,16 @@ interface Props {
     image: string;
   } | null;
   createdAt: string;
+  likes: [any];
   comments: {
     author: {
       image: string;
     };
   }[];
   isComment?: boolean;
+  userLogged: {
+    _id: string;
+  };
 }
 
 function ThreadCard({
@@ -37,7 +43,13 @@ function ThreadCard({
   createdAt,
   comments,
   isComment,
+  userLogged,
+  likes,
 }: Props) {
+  console.log(
+    likes.map((like) => like._id.toString() === userLogged._id.toString())
+  );
+
   return (
     <article
       className={`flex w-full flex-col rounded-xl ${
@@ -70,12 +82,13 @@ function ThreadCard({
 
             <div className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}>
               <div className="flex gap-3.5">
-                <Image
-                  src="/assets/heart-gray.svg"
-                  alt="heart"
-                  width={24}
-                  height={24}
-                  className="cursor-pointer object-contain"
+                <Like
+                  currentUserId={userLogged._id.toString()}
+                  id={id}
+                  key={id}
+                  isLiked={likes.some(
+                    (like) => like._id.toString() === userLogged._id.toString()
+                  )}
                 />
                 <Link href={`/thread/${id}`}>
                   <Image
@@ -101,7 +114,9 @@ function ThreadCard({
                   className="cursor-pointer object-contain"
                 />
               </div>
-
+              <p className="text-subtle-medium text-gray-1">
+                {likes.length} likes
+              </p>
               {isComment && comments.length > 0 && (
                 <Link href={`/thread/${id}`}>
                   <p className="mt-1 text-subtle-medium text-gray-1">

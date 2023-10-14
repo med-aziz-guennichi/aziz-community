@@ -61,7 +61,6 @@ export async function fetchCommunityDetails(id: string) {
         select: "name username image _id id",
       },
     ]);
-
     return communityDetails;
   } catch (error) {
     // Handle any errors
