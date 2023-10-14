@@ -30,6 +30,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
           comments={thread.children}
           likes={thread.likes}
           userLogged={userInfo._id}
+          sharedFrom={thread.sharedFrom}
         />
       </div>
       <div className="mt-7">
@@ -53,6 +54,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
             comments={childItem.children}
             likes={thread.likes}
             userLogged={userInfo._id}
+            sharedFrom={childItem.sharedFrom}
             isComment
           />
         ))}
