@@ -80,6 +80,7 @@ async function ThreadsTab({ currentUserId, accountId, accountType }: Props) {
           userLogged={user}
           createdAt={thread.createdAt}
           comments={thread.children}
+          sharedFrom={thread.sharedFrom}
         />
       ))}
     </section>
