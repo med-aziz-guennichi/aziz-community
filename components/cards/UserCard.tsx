@@ -30,12 +30,21 @@ const UserCard = ({ id, name, username, imgUrl, personType }: Props) => {
         </div>
       </div>
 
-      <Button
-        className="user-card_btn"
-        onClick={() => router.push(`/profile/${id}`)}
-      >
-        View
-      </Button>
+      {personType === "Community" ? (
+        <Button
+          className="user-card_btn"
+          onClick={() => router.push(`/communities/${id}`)}
+        >
+          View
+        </Button>
+      ) : (
+        <Button
+          className="user-card_btn"
+          onClick={() => router.push(`/profile/${id}`)}
+        >
+          View
+        </Button>
+      )}
     </article>
   );
 };

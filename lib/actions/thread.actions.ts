@@ -38,6 +38,10 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
     .populate({
       path: "likes",
       model: User,
+    })
+    .populate({
+      path: "sharedFrom",
+      model: User,
     });
 
   // Count the total number of top-level posts (threads) i.e., threads that are not comments.
@@ -269,6 +273,35 @@ export async function AddLikeOrDislikeToThread(
     }
     revalidatePath(path);
     return thread;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+}
+
+export async function republideThread(
+  threadId: string,
+  userId: string,
+  path: string
+) {
+  try {
+    connectToDB();
+    console.log(threadId);
+    const thread = await Thread.findById(threadId);
+    if (!thread) {
+      throw new Error("Thread not found");
+    }
+    const user = await User.findOne({ id: userId });
+    if (!user) {
+      throw new Error("User not found");
+    }
+    const newThread = new Thread({
+      text: thread.text,
+      author: user._id,
+      sharedFrom: thread.author,
+      community: null,
+    });
+    await newThread.save();
+    revalidatePath(path);
   } catch (error: any) {
     throw new Error(error.message);
   }

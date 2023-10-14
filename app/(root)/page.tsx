@@ -32,6 +32,7 @@ export default async function Home() {
                 comments={post.children}
                 likes={post.likes}
                 userLogged={userLogged?._id}
+                sharedFrom={post.sharedFrom}
               />
             ))}
           </>
