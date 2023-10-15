@@ -82,6 +82,7 @@ async function ThreadsTab({ currentUserId, accountId, accountType }: Props) {
           comments={thread.children}
           sharedFrom={thread.sharedFrom}
           photo={thread.image}
+          file={thread.file}
         />
       ))}
     </section>

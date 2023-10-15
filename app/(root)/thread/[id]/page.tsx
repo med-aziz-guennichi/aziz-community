@@ -24,6 +24,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
           currentUserId={user.id}
           parentId={thread.parentId}
           content={thread.text}
+          file={thread.file}
           author={thread.author}
           community={thread.community}
           createdAt={thread.createdAt}
@@ -53,10 +54,11 @@ const Page = async ({ params }: { params: { id: string } }) => {
             community={childItem.community}
             createdAt={childItem.createdAt}
             comments={childItem.children}
-            likes={thread.likes}
+            likes={childItem.likes}
             userLogged={userInfo._id}
             sharedFrom={childItem.sharedFrom}
             photo={thread.image}
+            file={thread.file}
             isComment
           />
         ))}
