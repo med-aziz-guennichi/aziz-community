@@ -25,6 +25,18 @@ export const ourFileRouter = {
 
       console.log("file url", file.url);
     }),
+  files: f(["text", "image", "video", "audio", "pdf"])
+    .middleware(async ({ req }) => {
+      // This code runs on your server before upload
+      const user = await getUser();
+
+      // If you throw, the user will not be able to upload
+      if (!user) throw new Error("Unauthorized");
+
+      // Whatever is returned here is accessible in onUploadComplete as `metadata`
+      return { userId: user.id };
+    })
+    .onUploadComplete(() => {}),
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;

@@ -31,6 +31,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
           likes={thread.likes}
           userLogged={userInfo._id}
           sharedFrom={thread.sharedFrom}
+          photo={thread.image}
         />
       </div>
       <div className="mt-7">
@@ -55,6 +56,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
             likes={thread.likes}
             userLogged={userInfo._id}
             sharedFrom={childItem.sharedFrom}
+            photo={thread.image}
             isComment
           />
         ))}

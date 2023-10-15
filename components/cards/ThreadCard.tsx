@@ -13,6 +13,8 @@ interface Props {
   currentUserId: string;
   parentId: string | null;
   content: string;
+  photo: string;
+  file: string;
   author: {
     name: string;
     image: string;
@@ -50,6 +52,8 @@ function ThreadCard({
   userLogged,
   likes,
   sharedFrom,
+  photo,
+  file,
 }: Props) {
   return (
     <ChakraProvider>
@@ -97,7 +101,31 @@ function ThreadCard({
               </Link>
 
               <p className="mt-2 text-small-regular text-light-2">{content}</p>
-
+              {photo && (
+                <div className="mt-5">
+                  <Link href={photo} rel="noreferrer">
+                    <Image
+                      src={photo}
+                      alt="user_post_image"
+                      width={400}
+                      className="object-cover cursor-pointer hover:scale-105 transition"
+                      height={400}
+                    />
+                  </Link>
+                </div>
+              )}
+              {file && (
+                <div className="mt-5">
+                  <a
+                    className="text-light-3 text-tiny-medium hover:underline"
+                    href={file}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {file}
+                  </a>
+                </div>
+              )}
               <div
                 className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}
               >

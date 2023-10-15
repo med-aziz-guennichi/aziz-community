@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 
 const threadSchema = new mongoose.Schema({
   text: { type: String, required: true },
+  image: { type: String },
+  file: { type: String },
   author: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   sharedFrom: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
