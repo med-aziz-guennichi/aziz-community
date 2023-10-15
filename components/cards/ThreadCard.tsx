@@ -7,6 +7,7 @@ import Like from "../forms/Like";
 import UserLikes from "./UserLikes";
 import { ChakraProvider } from "@chakra-ui/react";
 import Share from "../forms/Share";
+import LikesCard from "./LikesCard";
 
 interface Props {
   id: string;
@@ -55,6 +56,14 @@ function ThreadCard({
   photo,
   file,
 }: Props) {
+  const likess = likes.map((like) => {
+    return {
+      id: like._id,
+      name: like.name,
+      username: like.username,
+      image: like.image,
+    };
+  });
   return (
     <ChakraProvider>
       <article
@@ -159,7 +168,7 @@ function ThreadCard({
                 </div>
                 <div className="text-subtle-medium text-gray-1">
                   {likes.length > 0 && (
-                    <p className="cursor-pointer">{likes.length} likes</p>
+                    <LikesCard likesLength={likes.length} likes={likess} />
                   )}
                   {likes.length > 0 ? (
                     likes.map((like, index) => (
