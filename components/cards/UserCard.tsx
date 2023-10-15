@@ -21,7 +21,7 @@ const UserCard = ({ id, name, username, imgUrl, personType }: Props) => {
           alt="logo"
           width={48}
           height={48}
-          className="rounded-full"
+          className="rounded-full max-h-14 max-w-xs object-cover"
         />
 
         <div className="flex-1 text-ellipsis">
