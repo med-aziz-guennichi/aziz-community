@@ -26,6 +26,8 @@ import Image from "next/image";
 import { Input } from "../ui/input";
 import { ChakraProvider, Spinner } from "@chakra-ui/react";
 import { FileUpload } from "../shared/file-upload";
+import Loading from "@/animations/button-loading.json";
+import Lotti from "lottie-react";
 
 interface Props {
   userId: string;
@@ -187,7 +189,9 @@ function PostThread({ userId }: Props) {
           />
 
           {loading ? (
-            <Spinner speed="0.65s" />
+            <div className="w-[70px]">
+              <Lotti animationData={Loading} />
+            </div>
           ) : (
             <Button type="submit" className="bg-primary-500">
               Post Thread

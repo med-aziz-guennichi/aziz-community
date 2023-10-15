@@ -158,10 +158,13 @@ function ThreadCard({
                   /> */}
                 </div>
                 <div className="text-subtle-medium text-gray-1">
+                  {likes.length > 0 && (
+                    <p className="cursor-pointer">{likes.length} likes</p>
+                  )}
                   {likes.length > 0 ? (
-                    likes.map((like) => (
+                    likes.map((like, index) => (
                       <UserLikes
-                        key={id}
+                        key={index}
                         likesLength={likes.length}
                         name={like.name}
                         username={like.username}

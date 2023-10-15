@@ -21,7 +21,7 @@ const UserLikes = ({ name, username, id, likesLength, imgUrl }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <div>
-      <p className="cursor-pointer" onClick={onOpen}>
+      <p hidden className="cursor-pointer" onClick={onOpen}>
         {likesLength} likes
       </p>
       <Modal isCentered isOpen={isOpen} onClose={onClose}>

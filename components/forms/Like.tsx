@@ -13,7 +13,6 @@ const Like = ({ id, currentUserId, isLiked }: Props) => {
     const response = await AddLikeOrDislikeToThread(id, currentUserId, `/`);
     console.log(response);
   };
-  console.log(isLiked);
   return (
     <div>
       {isLiked ? (

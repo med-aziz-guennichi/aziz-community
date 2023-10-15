@@ -18,6 +18,9 @@ import { Input } from "@/components/ui/input";
 import { CommentValidation } from "@/lib/validations/thread";
 import Image from "next/image";
 import { addCommentToThread } from "@/lib/actions/thread.actions";
+import { useState } from "react";
+import Loading from "@/animations/button-loading.json";
+import Lotti from "lottie-react";
 
 interface Props {
   threadId: string;
@@ -28,6 +31,7 @@ interface Props {
 const Comment = ({ threadId, currentUserImg, currentUserId }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof CommentValidation>>({
     resolver: zodResolver(CommentValidation),
@@ -37,13 +41,14 @@ const Comment = ({ threadId, currentUserImg, currentUserId }: Props) => {
   });
 
   const onSubmit = async (values: z.infer<typeof CommentValidation>) => {
+    setLoading(true);
     await addCommentToThread(
       threadId,
       values.thread,
       JSON.parse(currentUserId),
       pathname
     );
-
+    setLoading(false);
     form.reset();
   };
   return (
@@ -75,9 +80,15 @@ const Comment = ({ threadId, currentUserImg, currentUserId }: Props) => {
           )}
         />
 
-        <Button type="submit" className="comment-form_btn">
-          Reply
-        </Button>
+        {loading ? (
+          <div className="w-[70px]">
+            <Lotti animationData={Loading} />
+          </div>
+        ) : (
+          <Button type="submit" className="comment-form_btn">
+            Reply
+          </Button>
+        )}
       </form>
     </Form>
   );

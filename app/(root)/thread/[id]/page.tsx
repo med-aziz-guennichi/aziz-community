@@ -57,8 +57,8 @@ const Page = async ({ params }: { params: { id: string } }) => {
             likes={childItem.likes}
             userLogged={userInfo._id}
             sharedFrom={childItem.sharedFrom}
-            photo={thread.image}
-            file={thread.file}
+            photo={childItem.image}
+            file={childItem.file}
             isComment
           />
         ))}
