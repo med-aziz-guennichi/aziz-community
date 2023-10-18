@@ -16,12 +16,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { UserValidation } from "@/lib/validations/user";
 import * as z from "zod";
 import Image from "next/image";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Textarea } from "../ui/textarea";
 import { isBase64Image } from "@/lib/utils";
 import { useUploadThing } from "@/lib/uploadthing";
 import { updateUser } from "@/lib/actions/user.actions";
 import { usePathname, useRouter } from "next/navigation";
+import { useRouter as useHaha } from "next/router";
+import * as gtag from "@/lib/gtag";
 
 interface Props {
   user: {
@@ -39,6 +41,16 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
   const { startUpload } = useUploadThing("media");
   const pathname = usePathname();
   const router = useRouter();
+  const eve = useHaha();
+  useEffect(() => {
+    const handleRouteChange = (url: any) => {
+      gtag.pageview(url);
+    };
+    eve.events.on("routeChangeComplete", handleRouteChange);
+    return () => {
+      eve.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [eve.events]);
   const form = useForm({
     resolver: zodResolver(UserValidation),
     defaultValues: {
